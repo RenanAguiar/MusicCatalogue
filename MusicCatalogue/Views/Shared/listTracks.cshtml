@@ -1,0 +1,82 @@
+﻿@model IEnumerable<MusicCatalogue.Models.Track>
+<div>
+    <h4>Tracks</h4>
+    <table class="table">
+        <tr>
+            <th class="col-lg-1">
+                @Html.DisplayNameFor(model => model.trackNumber)
+            </th>
+            <th class="col-lg-7">
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+            <th class="col-lg-2">
+                @Html.DisplayNameFor(model => model.duration)
+            </th>
+            <th class="col-lg-3"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr id="track_@(Html.DisplayFor(modelItem => item.trackNumber))">
+                <td>@Html.DisplayFor(modelItem => item.trackNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.title)</td>
+                <td>@Html.DisplayFor(modelItem => item.time)</td>
+                <td>
+                    @Html.ActionLink("ee ", "Edit", "Track", new { id = item.ID }, new { @class = "modal-edit btn btn-lg btn-info" })
+                    <a href="@Url.Action("Edit", "Track", new { id = item.ID })" class="btn btn-warning" data-toggle="modal">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </a>
+                    <a href="#" data-id="@item.ID" class="btn btn-danger" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-popover-content="#list-popover">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div id="list-popover" class="hide">
+    <div class="alert small alert-danger" role="alert">Delete this track?</div>
+    <a href="#" data-id="#" class="list-delete btn btn-danger" onclick="deleteTrack(this)">Delete</a>
+    <a href="#" class="btn btn-primary btn-primary">Cancel</a>
+</div>
+
+<script>
+
+    $('[data-toggle="popover"]').popover({
+        container: 'body',
+        html: true,
+        content: function () {
+            var clone = $($(this).data('popover-content')).clone(true).removeClass('hide');
+            var id = $(this).data('id')
+            clone.find('.list-delete').data("id",id);
+            return clone;
+        }
+    }).click(function (e) {
+        e.preventDefault();
+    });
+</script>
+
+
+
+<script>
+    function deleteTrack(param) {
+
+        id = $(param).data("id")
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("Delete", "Track")'+'/'+id,
+            data:{ name: 'container', value: id },
+
+            success: function (result) {
+                if (result.status == 'success') {
+                    $('#track_' + result.id).fadeOut(1000, function () { this.remove(); });
+                } else if (result.status == 'error') {
+                    alert("Error Creating!");
+                }
+
+            }
+        });
+    }
+
+</script>

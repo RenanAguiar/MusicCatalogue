@@ -1,0 +1,31 @@
+﻿@model MusicCatalogue.Models.Album
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div class="modal-body">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-4"><img src="/cover/@Html.DisplayFor(model => model.cover)"></div>
+            <div class="col-md-8">
+                <h2>@Html.DisplayFor(model => model.name)</h2>
+                <h4>@Html.DisplayFor(model => model.Artist.name)</h4>
+                @Html.DisplayFor(model => model.genre) @Html.DisplayFor(model => model.year)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @Html.Action("listTracks", "Track", new { id = Model.ID })
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
