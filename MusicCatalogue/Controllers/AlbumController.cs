@@ -16,7 +16,68 @@ namespace MusicCatalogue.Controllers
     {
         private const string PATH = "/cover/";
         private CatalogueContext db = new CatalogueContext();
-        
+
+
+        public ActionResult listAlbums2(int? id)
+        {
+            var album = db.Album
+                .Where(u => u.artistID == id);
+               //.ToList();
+
+            foreach (var item in album)
+            {
+
+                if (!System.IO.File.Exists(Server.MapPath("~" + PATH + item.cover)))
+                {
+                    item.cover = PATH + "default.png";
+                }
+                else
+                {
+                    item.cover = PATH + item.cover;
+                }
+            }
+
+            album.ToList();
+            return Json(album, JsonRequestBehavior.AllowGet);
+            // return PartialView("listAlbums", album.ToList());
+        }
+
+
+
+
+
+
+
+
+
+
+
+        [ChildActionOnly]
+        public ActionResult listAlbums(int? id)
+        {
+            // var track = db.Track.Include(a => a.albumID);
+            var album = db.Album
+                .Where(u => u.artistID == id)
+            .ToList();
+            foreach (var item in album)
+            {
+
+                if (!System.IO.File.Exists(Server.MapPath("~" + PATH + item.cover)))
+                {
+                    item.cover = PATH + "default.png";
+                }
+                else
+                {
+                    item.cover = PATH + item.cover;
+                }
+            }
+
+            return PartialView("listAlbums", album.ToList());
+        }
+
+
+
+
         // GET: Album
         public ActionResult Index()
         {

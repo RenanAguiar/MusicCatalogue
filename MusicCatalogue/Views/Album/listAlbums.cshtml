@@ -1,0 +1,22 @@
+﻿@model IEnumerable<MusicCatalogue.Models.Album>
+<div>
+    <h4>Albums</h4>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h4>@Html.DisplayFor(modelItem => item.name)</h4>
+                        <p>@Html.DisplayFor(modelItem => item.genre)</p>
+                        <p>
+                            @Html.ActionLink("View ", "Details", "Album", new { id = item.ID }, new { @class = "modal-master btn btn-lg btn-info" })
+                        </p>
+
+                    </div>
+                    <img src="@Html.DisplayFor(modelItem => item.cover)">
+                </div>
+            </div>
+        }
+    </div>
+</div>

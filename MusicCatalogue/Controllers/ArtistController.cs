@@ -33,7 +33,18 @@ namespace MusicCatalogue.Controllers
             {
                 return HttpNotFound();
             }
-            return View(artist);
+
+            AlbumController objController = new AlbumController();
+            var albums = objController.listAlbums2(id);
+
+            var response = new
+            {
+                artist = artist,
+                albums = albums
+            };
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+            // return PartialView(artist);
         }
 
         // GET: Artist/Create

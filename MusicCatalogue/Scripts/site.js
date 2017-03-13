@@ -1,6 +1,12 @@
 ﻿$(document).ready(function () {
     $('.popover-delete').popover();
 
+    enableHover();
+
+
+});
+
+function enableHover() {
     $('.thumbnail').hover(
         function () {
             $(this).find('.caption').slideDown(250); //.fadeIn(250)
@@ -9,11 +15,18 @@
             $(this).find('.caption').slideUp(250); //.fadeOut(205)
         }
     );
-});
-
-
+}
 
 $(function () {
+
+
+
+
+
+
+
+
+
     $('body').on('click', '.modal-master', function (e) {
         e.preventDefault();
         $(this).attr('data-target', '#modal-master');
@@ -62,3 +75,33 @@ $(function () {
 
 
 });
+
+
+$(".naner").click(function (event) {
+        event.preventDefault();
+        id = $(this).data("id");
+        $.ajax({
+            type: "get",
+            datatype: "html",
+            url: '/Artist/Details/'+id,
+            success: function (result)
+            {
+
+                $('.artistName').html(result.artist.name);
+                $("#listAlbums").empty();
+                $.each(result.albums.Data, function (index, element) {
+                    var clone = $('#boxAlbum').clone().removeAttr("id");
+                  
+                    clone.find('.albumTitle').html(element.name);
+                    clone.find('a').attr("href", "/Album/Details/" + element.ID);
+                    clone.removeClass("hidden");
+                    
+                    clone.find('img').attr('src', "/cover/" + element.cover);
+                    $("#listAlbums").append(clone);
+                });
+                enableHover();
+            }
+        });
+       
+    });
+

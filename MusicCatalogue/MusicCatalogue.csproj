@@ -210,6 +210,7 @@
     <Content Include="Views\Track\Edit.cshtml" />
     <Content Include="Views\Track\Index.cshtml" />
     <Content Include="Views\Shared\listTracks.cshtml" />
+    <Content Include="Views\Album\listAlbums.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

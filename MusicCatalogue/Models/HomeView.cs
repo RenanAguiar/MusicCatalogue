@@ -7,7 +7,7 @@ namespace MusicCatalogue.Models
 {
     public class HomeView
     {
-        public IEnumerable<Artist> Artist { get; set; }
-        public IEnumerable<Album> Album { get; set; }
+        public List<Artist> Artist { get; set; }
+        public List<Album> Album { get; set; }
     }
 }

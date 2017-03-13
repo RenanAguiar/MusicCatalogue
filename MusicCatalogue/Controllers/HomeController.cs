@@ -11,11 +11,12 @@ namespace MusicCatalogue.Controllers
     public class HomeController : Controller
     {
         private CatalogueContext db = new CatalogueContext();
+        private const int MAX_ALBUM = 10;
 
         public ActionResult Index()
         {
             var artists = db.Artist.ToList();
-            var albuns = db.Album.ToList();
+            var albuns = db.Album.Take(MAX_ALBUM).ToList();
 
             var model = new HomeView { Artist = artists, Album = albuns };
             return View(model);
