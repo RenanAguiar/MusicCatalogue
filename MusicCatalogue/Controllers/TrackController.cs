@@ -109,21 +109,45 @@ namespace MusicCatalogue.Models
             return PartialView(track);
         }
 
+
+
+
+
+
+
+
         // POST: Track/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,albumID,title,trackNumber,duration")] Track track)
+        public ActionResult Edit([Bind(Include = "ID,AlbumID,title,trackNumber,duration")] Track track)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(track).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+               // return RedirectToAction("Index");
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
+
+            List<ErrorResult> Errors = new List<ErrorResult>();
+            foreach (KeyValuePair<string, ModelState> modelStateDD in ViewData.ModelState)
+            {
+                string key = modelStateDD.Key;
+                ModelState modelState = modelStateDD.Value;
+
+                foreach (ModelError error in modelState.Errors)
+                {
+                    ErrorResult er = new ErrorResult();
+                    er.errorMessage = error.ErrorMessage;
+                    er.field = key;
+                    Errors.Add(er);
+                }
+            }
+
             ViewBag.albumID = new SelectList(db.Album, "ID", "name", track.albumID);
-            return View(track);
+            return Json(new { success = false, errors = Errors }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Track/Delete/5
@@ -165,6 +189,12 @@ namespace MusicCatalogue.Models
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private class ErrorResult
+        {
+            public string errorMessage { get; set; }
+            public string field { get; set; }
         }
     }
 }

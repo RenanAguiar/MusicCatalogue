@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MusicCatalogue.DAL;
 using MusicCatalogue.Models;
-
+using System.Web.Routing;
 
 namespace MusicCatalogue.Controllers
 {
@@ -17,17 +17,20 @@ namespace MusicCatalogue.Controllers
         private const string PATH = "/cover/";
         private CatalogueContext db = new CatalogueContext();
 
+        public void InitializeController(RequestContext context)
+        {
+            base.Initialize(context);
+        }
 
         public ActionResult listAlbums2(int? id)
         {
             var album = db.Album
-                .Where(u => u.artistID == id);
-               //.ToList();
-
+            .Where(u => u.artistID == id)
+            .ToList();
+            
             foreach (var item in album)
             {
-
-                if (!System.IO.File.Exists(Server.MapPath("~" + PATH + item.cover)))
+                if (!System.IO.File.Exists(Server.MapPath("~"+PATH + item.cover)))
                 {
                     item.cover = PATH + "default.png";
                 }
@@ -52,7 +55,7 @@ namespace MusicCatalogue.Controllers
 
 
 
-        [ChildActionOnly]
+       
         public ActionResult listAlbums(int? id)
         {
             // var track = db.Track.Include(a => a.albumID);

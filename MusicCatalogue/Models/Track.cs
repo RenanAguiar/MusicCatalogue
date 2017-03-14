@@ -13,6 +13,8 @@ namespace MusicCatalogue.Models
         public int ID { get; set; }
         public int albumID { get; set; }
         [Display(Name = "Title")]
+        [Required(ErrorMessage = "Title is required")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Minimum 1 character required")]
         public string title { get; set; }
         [Display(Name = "#")]
         public int trackNumber { get; set; }

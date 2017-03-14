@@ -23,7 +23,13 @@ $(function () {
 
 
 
-
+    $(document).on('show.bs.modal', '.modal', function () {
+        var zIndex = 1040 + (10 * $('.modal:visible').length);
+        $(this).css('z-index', zIndex);
+        setTimeout(function () {
+            $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+        }, 0);
+    });
 
 
 
@@ -83,20 +89,17 @@ $(".naner").click(function (event) {
         $.ajax({
             type: "get",
             datatype: "html",
-            url: '/Artist/Details/'+id,
+            url: '/Artist/Details/' + id,
             success: function (result)
             {
-
                 $('.artistName').html(result.artist.name);
                 $("#listAlbums").empty();
                 $.each(result.albums.Data, function (index, element) {
-                    var clone = $('#boxAlbum').clone().removeAttr("id");
-                  
+                    var clone = $('#boxAlbum').clone().removeAttr("id");                  
                     clone.find('.albumTitle').html(element.name);
                     clone.find('a').attr("href", "/Album/Details/" + element.ID);
-                    clone.removeClass("hidden");
-                    
-                    clone.find('img').attr('src', "/cover/" + element.cover);
+                    clone.removeClass("hidden");                    
+                    clone.find('img').attr('src',  element.cover);
                     $("#listAlbums").append(clone);
                 });
                 enableHover();

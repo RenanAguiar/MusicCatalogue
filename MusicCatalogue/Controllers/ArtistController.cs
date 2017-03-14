@@ -34,7 +34,13 @@ namespace MusicCatalogue.Controllers
                 return HttpNotFound();
             }
 
-            AlbumController objController = new AlbumController();
+
+          //  var controllerB = new ControllerB();
+           // controllerB.InitializeController(this.Request.RequestContext);
+
+
+            var objController = new AlbumController();
+            objController.InitializeController(this.Request.RequestContext);
             var albums = objController.listAlbums2(id);
 
             var response = new

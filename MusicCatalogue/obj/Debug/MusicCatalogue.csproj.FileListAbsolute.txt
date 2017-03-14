@@ -14,6 +14,8 @@ C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalog
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\MusicCatalogue.dll
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\MusicCatalogue.pdb
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\Antlr3.Runtime.dll
+C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\EntityFramework.dll
+C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\EntityFramework.SqlServer.dll
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\Newtonsoft.Json.dll
@@ -25,6 +27,8 @@ C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalog
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\System.Web.WebPages.dll
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\System.Web.WebPages.Razor.dll
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\WebGrease.dll
+C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\EntityFramework.xml
+C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\EntityFramework.SqlServer.xml
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\System.Web.Helpers.xml
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\System.Web.Mvc.xml
@@ -35,10 +39,6 @@ C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalog
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\System.Web.WebPages.Razor.xml
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\Antlr3.Runtime.pdb
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\Newtonsoft.Json.xml
-C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\obj\Debug\MusicCatalogue.csprojResolveAssemblyReference.cache
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\obj\Debug\MusicCatalogue.dll
 C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\obj\Debug\MusicCatalogue.pdb
-C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\EntityFramework.dll
-C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\EntityFramework.SqlServer.dll
-C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\EntityFramework.xml
-C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\bin\EntityFramework.SqlServer.xml
+C:\Users\Renan\Documents\Visual Studio 2015\Projects\MusicCatalogue\MusicCatalogue\obj\Debug\MusicCatalogue.csprojResolveAssemblyReference.cache
