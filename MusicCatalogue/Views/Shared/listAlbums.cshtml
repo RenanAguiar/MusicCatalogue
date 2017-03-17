@@ -1,0 +1,30 @@
+﻿@model MusicCatalogue.Models.HomeView
+<div>
+    <div class="row">
+        <h2 class="artistName pull-left">@Html.DisplayFor(modelItem => Model.ArtistSingle.name)</h2>
+        <a id="btnAddAlbum" class="modal-addAlbum btn btn-sm btn-primary pull-right" href="@Url.Action("Create", "Album", new { id = Model.ArtistSingle.ID })" data-id="0" data-toggle="modal" data-target="#modal-addAlbum">
+            <span class="glyphicon glyphicon-plus"></span>
+            Add New
+        </a>
+    </div>
+    <div class="row">
+        @foreach (var item in Model.Album)
+        {
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h4>@Html.DisplayFor(modelItem => item.name)</h4>
+                        <p>@Html.DisplayFor(modelItem => item.genre)</p>
+                        <p>
+                            @Html.ActionLink("View ", "Details", "Album", new { id = item.ID }, new { @class = "modal-master btn btn-lg btn-info" })
+                        </p>
+
+                    </div>
+                    <img src="@Html.DisplayFor(modelItem => item.cover)">
+                </div>
+            </div>
+        }
+
+
+    </div>
+</div>

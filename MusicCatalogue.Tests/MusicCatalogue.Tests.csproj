@@ -87,9 +87,31 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
+    <Content Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery.inputmask\inputmask.date.extensions.js" />
+    <Content Include="Scripts\jquery.inputmask\inputmask.date.extensions.min.js" />
+    <Content Include="Scripts\jquery.inputmask\inputmask.extensions.js" />
+    <Content Include="Scripts\jquery.inputmask\inputmask.extensions.min.js" />
+    <Content Include="Scripts\jquery.inputmask\inputmask.js" />
+    <Content Include="Scripts\jquery.inputmask\inputmask.min.js" />
+    <Content Include="Scripts\jquery.inputmask\inputmask.numeric.extensions.js" />
+    <Content Include="Scripts\jquery.inputmask\inputmask.numeric.extensions.min.js" />
+    <Content Include="Scripts\jquery.inputmask\inputmask.phone.extensions.js" />
+    <Content Include="Scripts\jquery.inputmask\inputmask.phone.extensions.min.js" />
+    <Content Include="Scripts\jquery.inputmask\inputmask.regex.extensions.js" />
+    <Content Include="Scripts\jquery.inputmask\inputmask.regex.extensions.min.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask.bundle.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask.min.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Scripts\jquery-3.1.1.min.map" />
+    <None Include="Scripts\jquery-3.1.1.slim.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MusicCatalogue\MusicCatalogue.csproj">

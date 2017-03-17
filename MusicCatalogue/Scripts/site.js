@@ -1,10 +1,17 @@
 ﻿$(document).ready(function () {
     $('.popover-delete').popover();
-
     enableHover();
+    $('.maskTime').inputmask('00:00:00', { reverse: true });
+
+
+
+
 
 
 });
+
+
+
 
 function enableHover() {
     $('.thumbnail').hover(
@@ -80,6 +87,24 @@ $(function () {
 
 
 
+    $('body').on('click', '.modal-addAlbum', function (e) {
+        e.preventDefault();
+        $(this).attr('data-target', '#modal-addAlbum');
+        $(this).attr('data-toggle', 'modal');
+    });
+    // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+    $('body').on('click', '.modal-close-btn', function () {
+        $('#modal-addAlbum').modal('hide');
+    });
+    //clear modal cache, so that new content can be loaded
+    $('#modal-addAlbum').on('hidden.bs.modal', function () {
+        $(this).removeData('bs.modal');
+    });
+    $('#CancelModal').on('click', function () {
+        return false;
+    });
+
+
 });
 
 
@@ -93,6 +118,11 @@ $(".naner").click(function (event) {
             success: function (result)
             {
                 $('.artistName').html(result.artist.name);
+                $("#btnAddAlbum").removeClass("hidden");
+               // $("#btnAddAlbum").data("id", result.artist.ID);
+                $("#btnAddAlbum").attr("href", "/Album/Create/" + result.artist.ID);
+                
+
                 $("#listAlbums").empty();
                 $.each(result.albums.Data, function (index, element) {
                     var clone = $('#boxAlbum').clone().removeAttr("id");                  
@@ -100,7 +130,7 @@ $(".naner").click(function (event) {
                     clone.find('a').attr("href", "/Album/Details/" + element.ID);
                     clone.removeClass("hidden");                    
                     clone.find('img').attr('src',  element.cover);
-                    $("#listAlbums").append(clone);
+                    $("#listAlbums").append(clone);                    
                 });
                 enableHover();
             }
@@ -108,3 +138,79 @@ $(".naner").click(function (event) {
        
     });
 
+
+
+
+
+
+function getAlbums(id) 
+{
+    $.ajax({
+        type: "get",
+        datatype: "html",
+        url: '/home/listAlbums/' + id,
+        success: function (result) {
+            // $('.artistName').html(result.artist.name);
+            //  $("#btnAddAlbum").removeClass("hidden");
+            // $("#btnAddAlbum").data("id", result.artist.ID);
+            // $("#btnAddAlbum").attr("href", "/Album/Create/" + result.artist.ID);
+            $("#listAlbums").html(result);
+
+            // $("#listAlbums").empty();
+
+            enableHover();
+        }
+    });
+}
+
+
+$(".naner2").click(function (event) {
+    event.preventDefault();
+    id = $(this).data("id");
+    getAlbums(id);
+    //$.ajax({
+    //    type: "get",
+    //    datatype: "html",
+    //    url: '/home/listAlbums/' + id,
+    //    success: function (result) {
+    //       // $('.artistName').html(result.artist.name);
+    //      //  $("#btnAddAlbum").removeClass("hidden");
+    //        // $("#btnAddAlbum").data("id", result.artist.ID);
+    //       // $("#btnAddAlbum").attr("href", "/Album/Create/" + result.artist.ID);
+    //        $("#listAlbums").html(result);
+
+    //       // $("#listAlbums").empty();
+
+    //        enableHover();
+    //    }
+    //});
+
+});
+
+
+
+$(".addAlbumd").click(function (event) {
+    event.preventDefault();
+    id = $(this).data("id");
+    $.ajax({
+        type: "get",
+        datatype: "html",
+        url: '/Album/Create/' + id,
+        success: function (result) {
+            $('.artistName').html(result.artist.name);
+            $("#btnAddAlbum").removeClass("hidden");
+            $("#btnAddAlbum").data("id", result.artist.ID);
+            $("#listAlbums").empty();
+            $.each(result.albums.Data, function (index, element) {
+                var clone = $('#boxAlbum').clone().removeAttr("id");
+                clone.find('.albumTitle').html(element.name);
+                clone.find('a').attr("href", "/Album/Details/" + element.ID);
+                clone.removeClass("hidden");
+                clone.find('img').attr('src', element.cover);
+                $("#listAlbums").append(clone);
+            });
+            enableHover();
+        }
+    });
+
+});

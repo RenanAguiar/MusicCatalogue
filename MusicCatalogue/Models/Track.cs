@@ -18,12 +18,13 @@ namespace MusicCatalogue.Models
         public string title { get; set; }
         [Display(Name = "#")]
         public int trackNumber { get; set; }
-        [Display(Name = "Duration")]
+       
         public int duration { get; set; }
 
         public virtual Album Album { get; set; }
 
         [NotMapped]
+        [Display(Name = "Duration")]
         public string time { get; set; }
     }
 }

@@ -9,5 +9,6 @@ namespace MusicCatalogue.Models
     {
         public List<Artist> Artist { get; set; }
         public List<Album> Album { get; set; }
+        public Artist ArtistSingle { get; set; }
     }
 }

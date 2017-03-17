@@ -8,29 +8,35 @@
 <div class="row">
     <div class="col-lg-3">
         <div class="list-group">
+            <div class="list-group-item active">
+                Artists
+            </div>
             @foreach (var item in Model.Artist)
             {
                 <a href="#" data-id="@item.ID" class="list-group-item list-group-item-action naner">@Html.DisplayFor(modelItem => item.name)</a>
+                <a href="#" data-id="@item.ID" class="list-group-item list-group-item-action naner2">@Html.DisplayFor(modelItem => item.name)</a>
             }
         </div>
     </div>
 
+
     <div id="info" class="col-lg-9">
         <div class="col-lg-12">
-            <h2 class="artistName"></h2>
-        </div>
-        <div id="listAlbums" class="col-lg-12">
-            
+            <h2 class="artistName pull-left"></h2>
+            <a href="#" id="btnAddAlbum" data-id="0" data-toggle="modal" class="modal-addAlbum btn btn-sm btn-primary pull-right hidden"><span class="glyphicon glyphicon-plus"></span>Add New</a>
+
+            <div id="listAlbums" class="col-lg-12">
+
+            </div>
         </div>
     </div>
 </div>
-
 
 <div id="boxAlbum" class="col-md-4 hidden">
     <div class="thumbnail">
         <div class="caption">
             <h4 class="albumTitle">a</h4>            
-            <p><a class="modal-master btn btn-lg btn-info" href="">View </a></p>
+            <p><a class="modal-master btn btn-lg btn-info" href="">View</a></p>
         </div>
         <img src="~/cover/default.png">
     </div>

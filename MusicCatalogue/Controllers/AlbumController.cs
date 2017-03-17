@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using MusicCatalogue.DAL;
 using MusicCatalogue.Models;
 using System.Web.Routing;
+using System.IO;
 
 namespace MusicCatalogue.Controllers
 {
@@ -55,8 +56,8 @@ namespace MusicCatalogue.Controllers
 
 
 
-       
-        public ActionResult listAlbums(int? id)
+        public List<Album> listAlbums(int? id)
+       // public ActionResult listAlbums(int? id)
         {
             // var track = db.Track.Include(a => a.albumID);
             var album = db.Album
@@ -74,8 +75,8 @@ namespace MusicCatalogue.Controllers
                     item.cover = PATH + item.cover;
                 }
             }
-
-            return PartialView("listAlbums", album.ToList());
+            return album;
+          // return PartialView("listAlbums", album.ToList());
         }
 
 
@@ -114,32 +115,64 @@ namespace MusicCatalogue.Controllers
             {
                 return HttpNotFound();
             }
+            if (!System.IO.File.Exists(Server.MapPath("~" + PATH + album.cover)))
+            {
+                album.cover = PATH + "default.png";
+            }
+            else
+            {
+                album.cover = PATH + album.cover;
+            }
             return PartialView("Details", album);
         }
 
         // GET: Album/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.artistID = new SelectList(db.Artist, "ID", "name");
-            return View();
+
+            Album album = new Album();
+            album.artistID = id;
+
+            return PartialView(album);
         }
 
+        private class ErrorResult
+        {
+            public string errorMessage { get; set; }
+            public string field { get; set; }
+        }
         // POST: Album/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,artistID,name,cover,year,genre")] Album album)
+        public ActionResult Create([Bind(Include = "artistID,name,year,genre")] Album album)
         {
+
             if (ModelState.IsValid)
-            {
+            { 
                 db.Album.Add(album);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return Json(new { success = true, data = album.artistID }, JsonRequestBehavior.AllowGet);
             }
 
-            ViewBag.artistID = new SelectList(db.Artist, "ID", "name", album.artistID);
-            return View(album);
+            List<ErrorResult> Errors = new List<ErrorResult>();
+            foreach (KeyValuePair<string, ModelState> modelStateDD in ViewData.ModelState)
+            {
+                string key = modelStateDD.Key;
+                ModelState modelState = modelStateDD.Value;
+
+                foreach (ModelError error in modelState.Errors)
+                {
+                    ErrorResult er = new ErrorResult();
+                    er.errorMessage = error.ErrorMessage;
+                    er.field = key;
+                    Errors.Add(er);
+                }
+            }
+
+            return Json(new { success = false, errors = Errors }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Album/Edit/5
@@ -163,7 +196,7 @@ namespace MusicCatalogue.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,artistID,name,cover,year,genre")] Album album)
+        public ActionResult Edit([Bind(Include = "ID,artistID,name,year,genre")] Album album)
         {
             if (ModelState.IsValid)
             {
@@ -208,6 +241,41 @@ namespace MusicCatalogue.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+
+        public ActionResult UploadFiles()
+        {
+            var r = new List<ViewDataUploadFilesResult>();
+
+            foreach (string file in Request.Files)
+            {
+                HttpPostedFileBase hpf = Request.Files[file] as HttpPostedFileBase;
+                if (hpf.ContentLength == 0)
+                    continue;
+                string ext = Path.GetExtension(hpf.FileName);
+                string newName = Guid.NewGuid().ToString().Replace("-", "")+ext;
+                string savedFileName = Path.Combine(
+                   AppDomain.CurrentDomain.BaseDirectory+"cover/",
+                   Path.GetFileName(newName));
+                hpf.SaveAs(savedFileName);
+
+                r.Add(new ViewDataUploadFilesResult()
+                {
+                    Name = savedFileName,
+                    Name2 = hpf.FileName,
+                    Length = hpf.ContentLength
+                });
+            }
+            return Json(new { success = false, r=r }, JsonRequestBehavior.AllowGet);
+        }
+
+        public class ViewDataUploadFilesResult
+        {
+            public string Name { get; set; }
+            public string Name2 { get; set; }
+            public int Length { get; set; }
         }
     }
 }

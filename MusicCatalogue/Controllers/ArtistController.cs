@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MusicCatalogue.DAL;
 using MusicCatalogue.Models;
+using System.Web.Routing;
 
 namespace MusicCatalogue.Controllers
 {
@@ -15,10 +16,53 @@ namespace MusicCatalogue.Controllers
     {
         private CatalogueContext db = new CatalogueContext();
 
+        public void InitializeController(RequestContext context)
+        {
+            base.Initialize(context);
+        }
+
         // GET: Artist
         public ActionResult Index()
         {
             return View(db.Artist.ToList());
+        }
+
+
+
+        //public ActionResult listAlbums(int? id)
+        //{
+        //    var objController = new AlbumController();
+        //    objController.InitializeController(this.Request.RequestContext);
+        //    var albums = objController.listAlbums(id);
+
+        //    Artist artist = db.Artist.Find(id);
+        //    artist.Album = albums;
+
+        //    return PartialView("listAlbums", artist);
+        //}
+
+
+
+
+
+
+
+
+
+
+
+        public Artist Details2(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            Artist artist = db.Artist.Find(id);
+            if (artist == null)
+            {
+                return null;
+            }
+            return artist;
         }
 
         // GET: Artist/Details/5

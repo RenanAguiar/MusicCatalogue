@@ -18,9 +18,31 @@ namespace MusicCatalogue.Controllers
             var artists = db.Artist.ToList();
             var albuns = db.Album.Take(MAX_ALBUM).ToList();
 
-            var model = new HomeView { Artist = artists, Album = albuns };
+             
+
+        var model = new HomeView { Artist = artists, Album = albuns };
             return View(model);
         }
+
+
+        public ActionResult listAlbums(int? id)
+        {
+            var objController = new ArtistController();
+            objController.InitializeController(this.Request.RequestContext);
+            var artist = objController.Details2(id);
+
+            var objController2 = new AlbumController();
+            objController2.InitializeController(this.Request.RequestContext);
+            var albums = objController2.listAlbums(id);
+
+
+            var model = new HomeView { ArtistSingle = artist, Album = albums };
+            return PartialView(model);
+        }
+
+
+
+
 
         public IEnumerable<Artist> getArstists() 
         {

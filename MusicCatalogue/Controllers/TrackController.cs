@@ -31,6 +31,27 @@ namespace MusicCatalogue.Models
             return value;
         }
 
+        public int timeToSeconds(string time)
+        {
+            if (String.IsNullOrEmpty(time))
+            {
+                return 0;
+            }
+            int[] ssmmhh = { 0, 0, 0 };
+            DateTime dt;
+            Boolean valid = DateTime.TryParse(time, out dt);
+
+            if (!valid)
+                return 0;
+
+            var hhmmss = time.Split(':');
+            var reversed = hhmmss.Reverse();
+            int i = 0;
+            reversed.ToList().ForEach(x => ssmmhh[i++] = int.Parse(x));
+            var seconds = (int)(new TimeSpan(ssmmhh[2], ssmmhh[1], ssmmhh[0])).TotalSeconds;
+            return seconds;
+        }
+
         [ChildActionOnly]
         public ActionResult listTracks(int? id)
         {
@@ -105,6 +126,7 @@ namespace MusicCatalogue.Models
             {
                 return HttpNotFound();
             }
+            track.time = secondsToTime(track.duration);
             ViewBag.albumID = new SelectList(db.Album, "ID", "name", track.albumID);
             return PartialView(track);
         }
@@ -121,14 +143,14 @@ namespace MusicCatalogue.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,AlbumID,title,trackNumber,duration")] Track track)
+        public ActionResult Edit([Bind(Include = "ID,AlbumID,title,trackNumber,duration,time")] Track track)
         {
             if (ModelState.IsValid)
             {
+                track.duration = timeToSeconds(track.time);
                 db.Entry(track).State = EntityState.Modified;
                 db.SaveChanges();
-               // return RedirectToAction("Index");
-                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, data = track }, JsonRequestBehavior.AllowGet);
             }
 
             List<ErrorResult> Errors = new List<ErrorResult>();

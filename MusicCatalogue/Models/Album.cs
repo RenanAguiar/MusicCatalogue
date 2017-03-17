@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Web;
@@ -9,15 +11,15 @@ namespace MusicCatalogue.Models
     public enum Genre
     {
         Rock,
-        [Description("R&B/ Hip Hop,")]
+        [Display(Name = "R&B/ Hip Hop,")]
         RBHH,
-        [Description("Dance/EDM")]
+        [Display(Name = "Dance/EDM")]
         DanceEDM,
         Pop,
         Country,
-        [Description("Christian/Gospel")]
+        [Display(Name = "Christian/Gospel")]
         ChristianGospel,
-        [Description("Holiday/Seasonal")]
+        [Display(Name = "Holiday/Seasonal")]
         HolidaySeasonal,
         Latin,
         Jazz,
@@ -28,16 +30,22 @@ namespace MusicCatalogue.Models
     public class Album
     {
         public int ID { get; set; }
-        public int artistID { get; internal set; }
+        public int artistID { get; set; }
+        [Display(Name = "Title")]
+        [Required(ErrorMessage = "Title is required")]
         public string name { get; set; }
+        [Display(Name = "Cover Image")]
         public string cover { get; set; }
+        [Display(Name = "Year")]
         public int year { get; set; }
+        [Display(Name = "Genre")]
         public Genre? genre { get; set; }
 
         public virtual Artist Artist { get; set; }
 
+        [NotMapped]
+        public virtual List<Track> Track { get; set; }
 
-   
-        
+
     }
 }

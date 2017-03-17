@@ -10,17 +10,17 @@
                 @Html.DisplayNameFor(model => model.title)
             </th>
             <th class="col-lg-2">
-                @Html.DisplayNameFor(model => model.duration)
+                @Html.DisplayNameFor(model => model.time)
             </th>
             <th class="col-lg-3"></th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr id="track_@(Html.DisplayFor(modelItem => item.trackNumber))">
-                <td>@Html.DisplayFor(modelItem => item.trackNumber)</td>
-                <td>@Html.DisplayFor(modelItem => item.title)</td>
-                <td>@Html.DisplayFor(modelItem => item.time)</td>
+            <tr id="track_@(Html.DisplayFor(modelItem => item.ID))">
+                <td class="trackTrackNumber">@Html.DisplayFor(modelItem => item.trackNumber)</td>
+                <td class="trackTitle">@Html.DisplayFor(modelItem => item.title)</td>
+                <td class="trackTime">@Html.DisplayFor(modelItem => item.time)</td>
                 <td>
                     
                     <a href="@Url.Action("Edit", "Track", new { id = item.ID })" class="btn btn-warning modal-edit" data-toggle="modal">
